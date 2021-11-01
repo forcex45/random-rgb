@@ -1,25 +1,19 @@
 new Vue({
     el: "#app",
     data: {
-        hex: "",
-        rgb: ""
+        hexCode: "",
+        rgbCode: ""
     },
     methods: {
-        rgbToHex(r, g, b) {
-            const hex = (r + g + b);
+        hexCompontent(x) {
+            x = x.toString(16);
+            return x.length == 1 ? "0" + x : x;
+        },
 
-            if (hex.length < 6) {
-                for (let i = 0; i < 6; i++) {
-                    if (hex.length == 6) {
-                        break;
-                    };
-                    const hexCode = "#" + hex + (6 - hex.length);
-                    this.hex = hexCode
-                    return hexCode;
-                }
-            };
-            const hexCode = "#" + hex;
-            this.hex = hexCode;
+        rgbToHex(r, g, b) {
+            const hexCode = "#" + this.hexCompontent(r) + this.hexCompontent(g) + this.hexCompontent(b);
+
+            this.hexCode = hexCode;
             return hexCode;
         },
         randomRGB() {
@@ -28,10 +22,10 @@ new Vue({
             const RANDOM_NUMBER3 = Math.floor(Math.random() * 255);
 
             const rgbCode = `rgb(${RANDOM_NUMBER},${RANDOM_NUMBER2},${RANDOM_NUMBER3})`;
-            this.rgbToHex(RANDOM_NUMBER, RANDOM_NUMBER2, RANDOM_NUMBER3)
-
+             this.rgbToHex(RANDOM_NUMBER, RANDOM_NUMBER2, RANDOM_NUMBER3)
             document.body.style.background = rgbCode;
-            this.rgb = rgbCode;
+
+            this.rgbCode = rgbCode;
         }
     }
 })
